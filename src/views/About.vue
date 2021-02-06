@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-4">
     <h3>{{detail.title}}</h3>
     <div class="d-flex flex-column justify-space-between align-center my-8">
     <v-img
@@ -11,17 +11,18 @@
       ></v-img>
     </div>
     <p class="mx-4" v-for="(item,i) in detail.content.split('#')" :key="i">{{item}}</p>
+
   </div>
 </template>
 
 <script>
   export default {
     data: () => ({
-      detail:{title:'',image:'',content:''}
+      detail:{title:'',image:'',content:'#'}
     }),
 
     created () {
-      console.log(this.$route)
+      //http://localhost:8080/#/?md5=7055ed33219f8dd7053794f79ebe1cb4
       var md5 = this.$route.query.md5;
       this.getData(md5);
     },
@@ -32,6 +33,7 @@
       console.log(task);
       if(task.code){
         this.detail = task.res.data;
+        this.$Global.phone = task.res.data.phone;
       }
     },
     getArticleDetail(requireData){

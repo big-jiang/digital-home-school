@@ -1,12 +1,23 @@
 <template>
-  <v-app>
-    <div id="nav">
-      <!-- <router-link to="/home">Home</router-link> |
-      <router-link to="/">About</router-link> -->
-    </div>
-    <router-view/>
-  </v-app>
+<v-app>
+  <router-view></router-view>
+
+  <my-cta v-if="this.$Global.isMobile()!=null&&this.$route.path!='/home'"/>
+  
+  <my-footer />
+</v-app>
+
 </template>
+
+<script>
+  export default {
+    name: 'App',
+    components: {
+      MyCta: () => import('@/components/Cta'),
+      MyFooter: () => import('@/components/Footer'),
+    },
+  }
+</script>
 
 <style lang="scss">
 #app {
