@@ -2,7 +2,7 @@
   <v-app>
     <router-view></router-view>
 
-    <my-cta v-if="this.$Global.isMobile() != null && this.$route.path != '/home'" />
+    <my-cta v-if="this.$Global.isMobile() != null && permissions[0]==1 && this.$route.path != '/home'" />
 
     <my-footer />
   </v-app>
@@ -15,6 +15,17 @@ export default {
     MyCta: () => import("@/components/Cta"),
     MyFooter: () => import("@/components/Footer"),
   },
+  data:()=>({
+    permissions:[0]
+  }),
+  async created(){
+    this.permissions = (await this.getPermissions({method:'getPermissions'})).data.data[0].permissions;
+  },
+  methods:{
+    getPermissions(requireData){
+      return this.$axios.post(this.$Global.api, requireData);
+    }
+  }
 };
 </script>
 

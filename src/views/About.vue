@@ -34,7 +34,7 @@ export default {
         md5: md5,
         method: "getArticleDetail",
       });
-      console.log(task);
+      // console.log(task);
       if (task.code) {
         this.detail = task.res.data;
         this.$Global.phone = task.res.data.phone;
