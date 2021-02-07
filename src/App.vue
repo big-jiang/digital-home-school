@@ -23,11 +23,9 @@ export default {
     }),
     methods:{
       login(){
-        console.log(1)
         this.home = true;
       },
       logout(){
-        console.log(0)
         this.home = false;
       },
     },

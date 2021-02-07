@@ -585,20 +585,43 @@
             return;
           }else{
             let image= await this.file2Image(file);
+            // var bto =  btoa(image);
+            // console.log(bto)
+            // console.log('readAsBinaryString',image)
+            // console.log('101010',new Blob([image]))
             let url = await this.uploadImage(image,file.name,"uploadImage");
+            //console.log(url);
             this.editedItem.url = url;
           }
+      },
+      file2Image(file) {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const image = e.target.result;
+            resolve(image);
+          };
+          reader.readAsBinaryString(file);
+          // reader.readAsDataURL(file);
+        });
       },
       uploadImage(image,path,method){
         return new Promise((resolve) => {
           var url = this.$Global.api;
-          var requireData = { imageBase64:image,phone: this.$Global.phone, path:path,method:method};
-          // console.log(url,requireData)
+          //var requireData = { imageBase64:image,phone: this.$Global.phone, path:path,method:method};
+          let requireData = new FormData();
+          requireData.append("phone",this.$Global.phone);
+          requireData.append("path",path);
+          requireData.append("method",method);
+          requireData.append("imageBase64",new Blob([image]));
+
           this.$axios({
             url:url,
             method:'post',
-            // params:requireData,
-            data:requireData
+            data:requireData,
+            headers: {
+              'Content-Type': 'multipart/form-data', // 关键
+            },
           }).then((res) => {
               resolve(res.data.url)
             })
@@ -606,25 +629,6 @@
               // 请求失败处理
               console.log(error);
             });
-          // this.$axios
-          //   .post(url, requireData)
-          //   .then((res) => {
-          //     resolve(res.data.url)
-          //   })
-          //   .catch(function (error) {
-          //     // 请求失败处理
-          //     console.log(error);
-          //   });
-        });
-      },
-      file2Image(file) {
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const data = e.target.result;
-            resolve(data);
-          };
-          reader.readAsDataURL(file);
         });
       },
     },
