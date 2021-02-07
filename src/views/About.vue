@@ -1,8 +1,8 @@
 <template>
   <div class="mt-4">
-    <h3>{{detail.title}}</h3>
+    <h3>{{ detail.title }}</h3>
     <div class="d-flex flex-column justify-space-between align-center my-8">
-    <v-img
+      <v-img
         lazy-src="https://picsum.photos/id/11/10/6"
         max-height="200"
         max-width="300"
@@ -10,47 +10,54 @@
         class="ml-20"
       ></v-img>
     </div>
-    <p class="mx-4" v-for="(item,i) in detail.content.split('#')" :key="i">{{item}}</p>
-
+    <p class="mx-4" v-for="(item, i) in detail.content.split('#')" :key="i">
+      {{ item }}
+    </p>
   </div>
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      detail:{title:'',image:'',content:'#'}
-    }),
+export default {
+  data: () => ({
+    detail: { title: "", image: "", content: "#" },
+  }),
 
-    created () {
-      //http://localhost:8080/#/?md5=7055ed33219f8dd7053794f79ebe1cb4
-      var md5 = this.$route.query.md5;
-      this.getData(md5);
-    },
+  created() {
+    //http://localhost:8080/#/?md5=7055ed33219f8dd7053794f79ebe1cb4
+    var md5 = this.$route.query.md5;
+    this.getData(md5);
+  },
 
-    methods: {
+  methods: {
     async getData(md5) {
-      let task = await this.getArticleDetail({md5:md5,method:"getArticleDetail"});
+      let task = await this.getArticleDetail({
+        md5: md5,
+        method: "getArticleDetail",
+      });
       console.log(task);
-      if(task.code){
+      if (task.code) {
         this.detail = task.res.data;
         this.$Global.phone = task.res.data.phone;
       }
     },
-    getArticleDetail(requireData){
+    getArticleDetail(requireData) {
       return this.$axios
         .post(this.$Global.api, requireData)
         .then((res) => {
-          return {code:1,res:res};
+          return { code: 1, res: res };
         })
         .catch((error) => {
           // 请求失败处理
-          return {code:0,res:error};
-      });
+          return { code: 0, res: error };
+        });
     },
-    }
-  }
+  },
+};
 </script>
 
 <style type="text/css">
-p{ text-indent:2em;text-align:left;}
+p {
+  text-indent: 2em;
+  text-align: left;
+}
 </style>

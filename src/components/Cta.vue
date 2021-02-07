@@ -10,29 +10,27 @@
     target="_blank"
     top
   >
-    <v-icon>
-      mdi-home
-    </v-icon>
+    <v-icon> mdi-home </v-icon>
   </v-btn>
 </template>
 
 <script>
-  export default {
-    name: 'Cta',
+export default {
+  name: "Cta",
 
-    computed: {
-      styles () {
-        return {
-          marginTop: `${this.$vuetify.application.top+550}px`,
-        }
-      },
+  computed: {
+    styles() {
+      return {
+        marginTop: `${this.$vuetify.application.top + 550}px`,
+      };
     },
-    methods:{
-        jump(){
-            if(this.$route.path!='/home'){
-                this.$router.push({path:'/home'});
-            }
-        }
-    }
-  }
+  },
+  methods: {
+    jump() {
+      if (this.$route.path != "/home") {
+        this.$router.push({ path: "/home" });
+      }
+    },
+  },
+};
 </script>
