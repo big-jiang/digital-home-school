@@ -337,8 +337,10 @@ import myOverlay from '../lib/my-overlay.vue'
     async updateRobot(id,requireData){
             var url = `https://robot-1gk2vy2q8735f96a.service.tcloudbase.com/rest-api/v1.0/robot/${id}`;
             let task = await this.restApi(url,requireData);
-            if(task.updated>0){alert('更新成功')}
-            this.addBack();
+            if(task.updated>0){
+              this.addBack();
+              console.log('更新成功');
+            }
     },
     restApi(url,requireData){
         return this.$axios

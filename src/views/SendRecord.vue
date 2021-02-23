@@ -45,7 +45,7 @@
           class="mx-auto"
         >
           <v-card-text class="my-4 text-center title display-2">
-            视频浏览量：{{totalLooked}}次
+            浏览量：{{totalLooked}}次
           </v-card-text>
         </v-card>
       </v-hover>
@@ -106,7 +106,7 @@
               >
                 mdi-google-classroom
               </v-icon>
-              {{ robot.name }}
+              {{ robot.name }} -- {{robot.looked}}
             </v-chip>
           </v-scroll-x-transition>
     </template>

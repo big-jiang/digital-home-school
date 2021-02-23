@@ -47,7 +47,7 @@
     <v-btn
       :disabled="!valid"
       color="primary"
-      width="180px"
+      width="180rpx"
       class="mr-4"
       @click="validate"
     >
@@ -58,8 +58,8 @@
     <v-col lg="5"> <v-img 
       :src="`https://picsum.photos/500/300?image=${2 * 5 + 10}`"
       :lazy-src="`https://picsum.photos/10/6?image=${2 * 5 + 10}`"
-      height="280px"
-      width="500px"
+      height="280rpx"
+      width="500rpx"
       ></v-img>
       <v-col 
         class="primary--text mb-n5"
