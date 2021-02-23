@@ -23,17 +23,12 @@ export default {
   }),
 
   created() {
-    //http://localhost:8080/#/?md5=7055ed33219f8dd7053794f79ebe1cb4
-    var md5 = this.$route.query.md5;
-    this.getData(md5);
+    this.getData({md5:this.$route.query.md5,robot:this.$route.query.robot,method:"getArticleDetail"});
   },
 
   methods: {
-    async getData(md5) {
-      let task = await this.getArticleDetail({
-        md5: md5,
-        method: "getArticleDetail",
-      });
+    async getData(requireData) {
+      let task = await this.getArticleDetail(requireData);
       // console.log(task);
       if (task.code) {
         this.detail = task.res.data;
